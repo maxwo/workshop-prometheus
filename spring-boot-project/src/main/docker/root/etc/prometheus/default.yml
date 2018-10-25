@@ -1,0 +1,113 @@
+---
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+rules:
+  - pattern: "^org.springframework.metrics<name=response, type=gauge, value=(.*)><>Value"
+    name: spring_http_requests_duration_seconds
+    help: "Spring HTTP request duration"
+    valueFactor: 0.001
+    labels:
+      route: $1
+    type: GAUGE
+  - pattern: "^org.springframework.metrics<name=status, type=counter, value=(\\d{3})\\.(.*)><>Value"
+    name: spring_http_requests_total
+    help: "Spring HTTP request total"
+    labels:
+      status: $1
+      route: $2
+    type: COUNTER
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=counter, value=(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)><>Value"
+    name: $1_$2_total
+    help: "Custom counter"
+    labels:
+      $3: $4
+      $5: $6
+      $7: $8
+    type: COUNTER
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=counter, value=(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)><>Value"
+    name: $1_$2_total
+    help: "Custom counter"
+    labels:
+      $3: $4
+      $5: $6
+    type: COUNTER
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=counter, value=(\\w+)\\.(\\w+)\\.(\\w+)\\><>Value"
+    name: $1_$2_total
+    help: "Custom counter"
+    labels:
+      $3: $4
+    type: COUNTER
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=gauge, value=(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)><>Value"
+    name: $1_$2
+    help: "Custom gauge"
+    labels:
+      $3: $4
+      $5: $6
+      $7: $8
+    type: GAUGE
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=gauge, value=(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)\\.(\\w+)><>Value"
+    name: $1_$2
+    help: "Custom gauge"
+    labels:
+      $3: $4
+      $5: $6
+    type: GAUGE
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=gauge, value=(\\w+)\\.(\\w+)\\.(\\w+)\\><>Value"
+    name: $1_$2
+    help: "Custom gauge"
+    labels:
+      $3: $4
+    type: GAUGE
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=gauge, value=(.*)><>Value"
+    name: spring_metrics
+    help: "Spring metrics"
+    labels:
+      domain: $1
+      name: $2
+    type: GAUGE
+  - pattern: "^org.springframework.metrics<name=(\\w+), type=counter, value=(.*)><>Value"
+    name: spring_metrics
+    help: "Spring metrics"
+    labels:
+      domain: $1
+      name: $2
+    type: COUNTER
+  - pattern: "^org.springframework.integration<type=MessageChannel, name=(.*)><>(.*)Duration"
+    name: spring_channel_duration_seconds
+    help: "Spring channel duration"
+    valueFactor: 0.001
+    labels:
+      channel: $1
+      type: $2
+    type: GAUGE
+  - pattern: "^org.springframework.integration<type=MessageChannel, name=(.*)><>(.*)CountLong"
+    name: spring_channel_messages_total
+    help: "Spring channel message count"
+    labels:
+      channel: $1
+      type: $2
+    type: COUNTER
+  - pattern: "^org.springframework.integration<type=MessageHandler, name=(.*), bean=(.*)><>(.*)CountLong"
+    name: spring_handler_processed_total
+    help: "Spring handler counters"
+    labels:
+      handler: $1
+      bean: $2
+      type: $3
+    type: COUNTER
+  - pattern: "^org.springframework.integration<type=MessageHandler, name=(.*), bean=(.*)><>(.*)Duration"
+    name: spring_handler_duration_seconds
+    help: "Spring handler counters"
+    valueFactor: 0.001
+    labels:
+      handler: $1
+      bean: $2
+      type: $3
+    type: GAUGE
+  - pattern: "^org.springframework.integration<type=MessageHandler, name=(.*), bean=(.*)><>Running"
+    name: spring_handler_up
+    help: "Spring handler health"
+    labels:
+      handler: $1
+      bean: $2
+    type: COUNTER
