@@ -6,16 +6,43 @@ groups:
     expr: up == 0
     for: 5m
     labels:
-      severity: "critical"
+      severity: critical
+      type: business
+      bu: lmit
+      environment: production
+      oid: 1.3.6.1.4.1.666.0.10.1.1.1.5.1
+      send_trap: "true"
+      zone: scr
     annotations:
       description: "Service {{$labels.instance}} is down."
       summary: "A service is no more reachable."
 
-  - alert: ProcessIsUsingMoreThan1CPU
-    expr: rate(process_cpu_seconds_total[1m]) > 1
+  - alert: ProcessUsageIsHigh
+    expr: rate(process_cpu_usage[1m]) > 2
     for: 5m
     labels:
-      severity: "warning"
+      severity: warning
+      type: business
+      bu: lmit
+      environment: production
+      oid: 1.3.6.1.4.1.666.0.10.1.1.1.7.1
+      send_trap: "true"
+      zone: scr
     annotations:
       description: "Process {{$labels.instance}} is using {{$value}} core."
-      summary: "The process uses more than 1 core alone."
+      summary: "The process is using more than 2 core."
+
+  - alert: ProcessUsageIsHigh
+    expr: rate(process_cpu_usage[1m]) > 3
+    for: 5m
+    labels:
+      severity: critical
+      type: business
+      bu: lmit
+      environment: production
+      oid: 1.3.6.1.4.1.666.0.10.1.1.1.7.1
+      send_trap: "true"
+      zone: scr
+    annotations:
+      description: "Process {{$labels.instance}} is using {{$value}} core."
+      summary: "The process is using more than 3 core."

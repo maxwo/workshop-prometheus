@@ -21,6 +21,8 @@ RUN set -x \
 FROM openjdk:11.0.1-jdk-slim-sid
 
 COPY src/main/docker/root /
+RUN set -x \
+ && mkdir -p /opt/application
 
 COPY --from=build /project/target/*.jar /opt/application
 RUN set -x; \

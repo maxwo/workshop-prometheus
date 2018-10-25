@@ -17,3 +17,7 @@ services:
     volumes:
     - ./prometheus/configuration:/etc/prometheus:ro
     - ./prometheus/data:/prometheus:rw
+  grafana:
+    image: "grafana/grafana:5.3.2"
+    ports:
+    - "3000:3000"

@@ -29,7 +29,7 @@ public class UserController {
     		@RequestParam(value="lastName", required=false) String lastName,
     		@RequestParam(value="city", required=false) String city) {
 		counterService.increment(ALL_SEARCH_COUNTER);
-        return userService.getUsers();
+        return userService.getUsers(firstName, lastName, city);
     }
 
 	@RequestMapping("/users/{userId}")

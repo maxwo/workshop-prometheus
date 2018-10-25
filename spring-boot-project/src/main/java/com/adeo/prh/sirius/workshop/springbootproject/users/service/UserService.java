@@ -14,7 +14,7 @@ public class UserService {
 			new User(3, "Karma", "Sosa"), 4l, new User(4, "Jake", "Riggs"), 5l, new User(5, "Estrella", "Burns"), 6l,
 			new User(6, "Abbigail", "Dickson"), 7l, new User(7, "Marley", "Compton"));
 
-	public Collection<User> getUsers() {
+	public Collection<User> getUsers(String firstName, String lastName, String city) {
 		return users.values();
 	}
 

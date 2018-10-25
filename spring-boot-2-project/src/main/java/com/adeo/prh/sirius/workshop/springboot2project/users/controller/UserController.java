@@ -29,7 +29,7 @@ public class UserController {
     		@RequestParam(value="lastName", required=false) String lastName,
     		@RequestParam(value="city", required=false) String city) {
 		Metrics.counter(SEARCH_COUNTER, "search", "all");
-        return userService.getUsers();
+        return userService.getUsers(firstName, lastName, city);
     }
 
 	@RequestMapping("/users/{userId}")

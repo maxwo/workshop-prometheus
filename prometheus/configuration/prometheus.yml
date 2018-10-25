@@ -16,6 +16,7 @@ scrape_configs:
       port: 7072
 
   - job_name: 'spring-boot-2-project'
+    metrics_path: /prometheus
     dns_sd_configs:
     - names:
       - 'spring_boot_2_project'
